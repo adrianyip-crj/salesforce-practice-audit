@@ -1,0 +1,38 @@
+# Salesforce DX
+.sfdx/
+.localdevserver/
+deploy-options.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Eslint cache
+.eslintcache
+
+# MacOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Salesforce cache
+.sf/
+.sfdx/
+
+# Test results
+test-results/
+coverage/

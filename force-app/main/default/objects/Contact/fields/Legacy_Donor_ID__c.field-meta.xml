@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legacy_Donor_ID__c</fullName>
+    <label>Legacy Donor ID</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <length>50</length>
+    <unique>false</unique>
+    <description>DEPRECATED - Used during 2018 data migration from old database. No longer needed.</description>
+</CustomField>

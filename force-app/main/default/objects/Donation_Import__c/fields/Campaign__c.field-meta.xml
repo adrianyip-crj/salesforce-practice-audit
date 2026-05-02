@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign__c</fullName>
+    <label>Campaign</label>
+    <referenceTo>Campaign</referenceTo>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <relationshipLabel>Donation Imports</relationshipLabel>
+    <relationshipName>Donation_Imports</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+    <description>PROBLEM: This field is required but the Stripe import integration is not mapping/populating it, causing records to be dropped during import.</description>
+</CustomField>
