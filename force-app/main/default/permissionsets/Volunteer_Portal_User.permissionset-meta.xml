@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Permission set for volunteers accessing the Experience Cloud volunteer portal. PROBLEM: Missing object permissions for Volunteer_Shift__c, preventing volunteers from viewing their assigned shifts.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Volunteer__c.Background_Check_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Volunteer__c.Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Volunteer__c.Total_Hours_Volunteered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Volunteer Portal User</label>
     <objectPermissions>
@@ -12,19 +27,4 @@
         <object>Volunteer__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Volunteer__c.Phone__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Volunteer__c.Background_Check_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Volunteer__c.Total_Hours_Volunteered__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
 </PermissionSet>

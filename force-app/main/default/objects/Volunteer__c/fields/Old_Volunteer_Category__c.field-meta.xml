@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Old_Volunteer_Category__c</fullName>
+    <description>DEPRECATED - This field was replaced by Volunteer_Type__c in 2022. No longer used.</description>
+    <externalId>false</externalId>
     <label>Old Volunteer Category</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
@@ -26,5 +28,4 @@
             </value>
         </valueSetDefinition>
     </valueSet>
-    <description>DEPRECATED - This field was replaced by Volunteer_Type__c in 2022. No longer used.</description>
 </CustomField>
