@@ -40,19 +40,53 @@ List your findings with the Flow name, status, trigger, what it does, and any is
 
 ## Category 2: Custom Fields
 
+### Step 1 — Identify field references across metadata
+
 ```
 For every custom field in the metadata, trace its references across all other metadata types:
 - Flows
 - Apex classes and triggers
 - Permission sets
 - Layouts
-- Profiles
+- Profiles (field-level security)
 
 Flag any field that has zero references across all of these. Also flag any field whose 
 name or description contains words like "deprecated", "old", "legacy", or "unused".
 
 Present findings as a list: field name, object, and what references exist (or "none found").
 ```
+
+### Step 2 — FLS cross-reference for flagged fields
+
+For each field flagged as potentially unused in Step 1, run this prompt:
+
+```
+For the field [Object__c.Field__c], search all retrieved profile metadata files for 
+fieldPermissions entries referencing this field. List every profile that grants Read 
+or Edit access. If no profiles grant access, confirm this explicitly.
+```
+
+### Step 3 — Classify each finding
+
+Use this decision tree:
+
+| Condition | Classification | Action |
+|-----------|---------------|--------|
+| No metadata references + No FLS in any profile | **Confirmed** — safe to delete | Proceed to deletion workflow |
+| No metadata references + FLS exists in one or more profiles | **Likely** — verify before deleting | Run Workbench COUNT check first |
+| Has metadata references + No FLS | **Flag for investigation** | Determine if reference is stale or FLS was accidentally removed |
+| Has metadata references + FLS exists | Not unused — remove from list | Do not recommend deletion |
+
+**Unused field findings should never be Confirmed based on metadata reference tracing alone. FLS verification is always required.**
+
+### Step 4 — Document in findings report
+
+For each unused field finding, include:
+- List of profiles checked
+- FLS status (none / read-only / read-write) per profile
+- Metadata references found (or confirmed none)
+- Confidence tier based on decision tree above
+- Pre-deletion steps required (see Pre-Deletion Workflow below)
 
 ---
 
@@ -143,6 +177,29 @@ For each finding, note your confidence level:
 - Likely: strongly suggested but worth a quick check
 - Flag for investigation: needs client input or org access to verify
 ```
+
+---
+
+## Pre-Deletion Workflow (Unused Fields)
+
+Run this before deleting any field flagged as unused:
+
+1. **Check FLS** in retrieved profile metadata (see Category 2, Step 2 prompt)
+2. **If no FLS** → field is inaccessible, no data can exist → proceed to UI deletion
+3. **If FLS exists** → run a Workbench SOQL count check:
+   - Open `workbench.developerforce.com` → Queries → SOQL
+   - Run queries one at a time (never comma-separated):
+
+```sql
+SELECT COUNT() FROM Object__c WHERE Field__c != null
+```
+
+   - COUNT = 0 → safe to delete
+   - COUNT > 0 → export data before deleting
+
+4. **Always use Workbench, not Developer Console.** Developer Console caches object schemas and returns false "no such column" errors after recent deployments.
+
+5. **"No such column" in SOQL does not confirm a field doesn't exist.** If a field has no FLS, SOQL will return this error even though the field physically exists. Check Object Manager and Workbench field picker to confirm field existence before concluding it's missing.
 
 ---
 
