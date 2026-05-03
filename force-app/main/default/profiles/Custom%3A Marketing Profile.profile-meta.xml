@@ -14,11 +14,6 @@
     </classAccesses>
     <custom>true</custom>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.Legacy_Donor_ID__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Donation_Import__c.Campaign__c</field>
         <readable>true</readable>
@@ -35,22 +30,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Grant__c.Deprecated_Grant_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Volunteer_Shift__c.Hours_Worked__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Volunteer__c.Background_Check_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Volunteer__c.Old_Volunteer_Category__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
