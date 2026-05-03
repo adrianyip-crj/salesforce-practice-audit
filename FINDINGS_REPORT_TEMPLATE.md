@@ -1,315 +1,130 @@
-# Salesforce Org Health Audit - Findings Report
+# Salesforce Org Health Audit — Findings Report
 
-**Client**: Coastal Community Food Bank  
-**Audit Date**: [DATE]  
-**Auditor**: [YOUR NAME]  
-**Org Type**: Production / Sandbox / Developer Edition  
-**Salesforce Edition**: [Enterprise/Unlimited/etc.]
+**Client:** [Client Name]
+**Audit Date:** [Date]
+**Auditor:** [Name] | Cloud4Good
+**Report Version:** 1.0
 
 ---
 
 ## Executive Summary
 
-This report presents the findings from a comprehensive health audit of the Coastal Community Food Bank Salesforce org. The audit analyzed all custom metadata including objects, fields, automations (Flows and Apex), permission sets, and integrations.
+[2–3 paragraphs. Cover: what we did, the overall health of the org, the most important things we found, and the recommended immediate next steps. Written for a non-technical audience — avoid jargon. Focus on business impact, not technical detail.]
 
-### Key Statistics
-- **Custom Objects Reviewed**: 4
-- **Custom Fields Reviewed**: 21
-- **Flows Reviewed**: 4
-- **Apex Classes Reviewed**: 1
-- **Apex Triggers Reviewed**: 1
-- **Permission Sets Reviewed**: 1
+**Audit scope:** [List the metadata types analyzed — e.g., Apex classes, Flows, custom objects and fields, permission sets, layouts, profiles]
 
-### Findings Summary
-- **Critical Issues**: [X] findings requiring immediate attention
-- **High Priority**: [X] findings impacting operations or data quality
-- **Medium Priority**: [X] findings representing inefficiency or technical debt
-- **Low Priority**: [X] findings for future optimization
+**Files analyzed:** [Number] metadata files
 
-### Recommended Actions
-1. [Top priority action]
-2. [Second priority action]
-3. [Third priority action]
+---
+
+## Summary of Findings
+
+| # | Finding | Severity | Category | Status |
+|---|---------|----------|----------|--------|
+| 1 | [Short name] | Critical / High / Medium / Low | Automation / Permissions / Data / Code / Hygiene | Confirmed / Flag for investigation |
+| 2 | | | | |
+| 3 | | | | |
 
 ---
 
 ## Critical Issues
+*These require immediate attention. They are actively causing problems.*
 
-### Finding #1: [Title]
+### [Finding Name]
 
-**Severity**: Critical / High / Medium / Low  
-**Status**: Open / In Progress / Resolved  
-**Category**: Automation / Data Quality / Security / Technical Debt
+**What's happening:** [Plain-English description of the problem]
 
-**Description**:
-[Detailed description of what's wrong]
+**Business impact:** [What this means for the organization — lost data, broken processes, user frustration, compliance risk]
 
-**Impact**:
-[Business impact - what's broken, who's affected, what data is being lost]
+**Root cause:** [What in the org configuration is causing this]
 
-**Root Cause**:
-[Technical explanation of why this is happening]
+**Recommended fix:** [Specific, actionable recommendation]
 
-**Evidence**:
-```
-[Code snippet, XML, or screenshot showing the problem]
-```
+**Effort estimate:** [Hours/days]
 
-**Affected Components**:
-- [Flow/Object/Class name]
-- [Related components]
-
-**Recommendation**:
-[Specific steps to fix this]
-
-**Effort Estimate**: [X hours/days]
-
-**Priority Justification**:
-[Why this needs immediate attention or can wait]
+**Confidence:** Confirmed / Flag for investigation
 
 ---
 
-### Finding #2: [Title]
+## High Priority
+*These should be addressed this month. They are not actively breaking things but carry meaningful risk.*
 
-[Repeat structure above for each critical finding]
+### [Finding Name]
 
----
+**What's happening:**
 
-## High Priority Issues
+**Business impact:**
 
-### Finding #3: [Title]
+**Root cause:**
 
-[Same structure as above]
+**Recommended fix:**
 
----
+**Effort estimate:**
 
-## Medium Priority Issues (Optimization Opportunities)
-
-### Finding #4: [Title]
-
-[Same structure as above]
+**Confidence:**
 
 ---
 
-## Technical Debt Items
+## Medium Priority
+*These should be addressed this quarter. They are causing inefficiency or creating future risk.*
 
-### Finding #5: [Title]
+### [Finding Name]
 
-[Same structure as above]
+**What's happening:**
 
----
+**Business impact:**
 
-## Detailed Findings by Category
+**Root cause:**
 
-### Automation Issues
+**Recommended fix:**
 
-| # | Finding | Severity | Impact | Effort |
-|---|---------|----------|--------|--------|
-| 1 | [Brief description] | High | [Brief impact] | [Hours] |
-| 2 | [Brief description] | Medium | [Brief impact] | [Hours] |
+**Effort estimate:**
 
-### Data Quality Issues
-
-| # | Finding | Severity | Impact | Effort |
-|---|---------|----------|--------|--------|
-| 3 | [Brief description] | Critical | [Brief impact] | [Hours] |
-
-### Security & Access Issues
-
-| # | Finding | Severity | Impact | Effort |
-|---|---------|----------|--------|--------|
-| 4 | [Brief description] | High | [Brief impact] | [Hours] |
-
-### Code Quality & Technical Debt
-
-| # | Finding | Severity | Impact | Effort |
-|---|---------|----------|--------|--------|
-| 5 | [Brief description] | Medium | [Brief impact] | [Hours] |
+**Confidence:**
 
 ---
 
-## Recommendations & Roadmap
+## Technical Debt
+*These are cleanup items with no immediate urgency, but left unaddressed they accumulate.*
 
-### Immediate Actions (This Week)
-1. **[Finding Title]** - [Brief fix description]
-   - Owner: [Who should do this]
-   - Effort: [X hours]
-   - Dependencies: [Any blockers]
-
-### Short-Term Actions (This Month)
-1. **[Finding Title]** - [Brief fix description]
-2. **[Finding Title]** - [Brief fix description]
-
-### Long-Term Actions (This Quarter)
-1. **[Finding Title]** - [Brief fix description]
-2. **[Finding Title]** - [Brief fix description]
+- [Item 1] — [brief description and recommended action]
+- [Item 2]
+- [Item 3]
 
 ---
 
 ## Implementation Plan
 
-### Phase 1: Critical Fixes (Week 1)
-- [ ] Fix broken thank you email Flow
-- [ ] Resolve permission set blocking volunteer portal access
-- [ ] Address data import mapping issue
+| Priority | Finding | Effort | Recommended Timeline |
+|----------|---------|--------|----------------------|
+| 1 | | | Immediately |
+| 2 | | | This week |
+| 3 | | | This month |
+| 4 | | | This quarter |
 
-**Total Effort**: [X hours]  
-**Resources Required**: [Salesforce Admin + Developer if needed]
-
-### Phase 2: High Priority (Week 2-3)
-- [ ] Deactivate redundant automations
-- [ ] Resolve code/process drift issues
-- [ ] Improve test coverage
-
-**Total Effort**: [X hours]  
-**Resources Required**: [Developer for Apex work]
-
-### Phase 3: Cleanup & Optimization (Week 4)
-- [ ] Remove unused custom fields
-- [ ] Document all changes
-- [ ] Update org documentation
-
-**Total Effort**: [X hours]  
-**Resources Required**: [Salesforce Admin]
+**Total estimated effort:** [X hours / Y days]
 
 ---
 
-## Risk Assessment
+## About This Audit
 
-### High Risk Areas
-**1. Data Loss Risk**
-- Finding: [Donation imports dropping records]
-- Impact: Revenue tracking incomplete
-- Mitigation: Immediate fix required
+This audit was conducted by retrieving your Salesforce org's metadata and analyzing it using Claude AI. The analysis covers configuration visible in the metadata — automations, field definitions, permission sets, page layouts, Apex code, and test classes.
 
-**2. User Access Issues**
-- Finding: [Volunteers can't access portal]
-- Impact: Program operations disrupted
-- Mitigation: Permission set fix (15 min)
+**What this audit can and cannot detect:**
 
-### Medium Risk Areas
-**1. Duplicate Tasks**
-- Finding: [Redundant Flows creating duplicate tasks]
-- Impact: Staff wasting time, confusion
-- Mitigation: Deactivate one Flow
-
-### Low Risk Areas
-**1. Unused Fields**
-- Finding: [3 deprecated fields cluttering org]
-- Impact: Minimal - cosmetic issue
-- Mitigation: Safe to remove after data check
+This analysis is based on metadata and cannot directly observe live data, actual test execution results, or external system behavior. Findings marked "Flag for investigation" require verification with your team or direct org access before implementing fixes. All findings should be reviewed by a qualified Salesforce administrator or developer before implementing changes.
 
 ---
 
-## Dependencies & Considerations
+## Next Steps
 
-### Integration Dependencies
-- **Stripe Integration**: Will need adjustment after fixing Campaign__c mapping
-- **Mailchimp Integration**: Not affected by recommended changes
-- **Experience Cloud Portal**: Will start working after permission set fix
-
-### User Training Required
-- [ ] Staff training on new Grant task workflow after redundant Flow removal
-- [ ] Volunteer coordinators aware of portal fix
-
-### Testing Requirements
-Before deploying fixes to production:
-1. Test all fixes in sandbox first
-2. Verify no regression on existing functionality
-3. Confirm users can perform their workflows
-4. Monitor for 24 hours after deployment
+1. Review this report with your team
+2. Confirm or investigate any findings marked "Flag for investigation"
+3. Prioritize fixes based on business impact and available resources
+4. Schedule implementation work with Cloud4Good
+5. Plan a follow-up audit [timeframe] after fixes are implemented to verify resolution
 
 ---
 
-## Best Practices Recommendations
-
-Beyond the specific findings, we recommend:
-
-### Ongoing Maintenance
-1. **Quarterly Metadata Reviews** - Run this audit quarterly to catch drift early
-2. **Code Coverage Monitoring** - Set up alerts for classes below 75%
-3. **Automation Documentation** - Maintain a registry of all Flows and their purposes
-4. **Field Governance** - Require approval before creating new custom fields
-
-### Development Standards
-1. **Test Class Requirements**: All new Apex must have >85% coverage with meaningful assertions
-2. **Flow Naming Convention**: [Object]_[Action]_[Trigger] format
-3. **Deprecation Process**: Document + deactivate old automation before building new
-4. **Permission Set Review**: Audit permissions quarterly for least-privilege access
-
----
-
-## Appendix A: Metadata Inventory
-
-### Custom Objects
-| Object API Name | Purpose | Fields | Flows | Apex |
-|-----------------|---------|--------|-------|------|
-| Volunteer__c | Track volunteers | 8 | 1 | 1 trigger |
-| Grant__c | Track grants | 6 | 2 | - |
-| Volunteer_Shift__c | Track shifts | 4 | - | - |
-| Donation_Import__c | Stage Stripe imports | 5 | - | 1 class |
-
-### Automation Summary
-| Type | Count | Active | Broken | Redundant |
-|------|-------|--------|--------|-----------|
-| Flows | 4 | 4 | 1 | 2 |
-| Apex Triggers | 1 | 1 | - | 1 (drift) |
-| Process Builders | 0 | - | - | - |
-| Workflow Rules | 0 | - | - | - |
-
----
-
-## Appendix B: Field Usage Analysis
-
-### Unused Fields Identified
-| Object | Field API Name | Created | Last Modified | Recommendation |
-|--------|----------------|---------|---------------|----------------|
-| Volunteer__c | Old_Volunteer_Category__c | 2020 | 2020 | Delete |
-| Grant__c | Deprecated_Grant_Status__c | 2019 | 2019 | Delete |
-| Contact | Legacy_Donor_ID__c | 2018 | 2018 | Delete |
-
-**Data Verification Required**: Before deletion, verify these fields have no data or that data has been migrated.
-
----
-
-## Appendix C: Code Coverage Report
-
-| Class Name | Coverage % | Status | Action Required |
-|------------|-----------|--------|-----------------|
-| DonationProcessor | ~60% | Below threshold | Write additional tests |
-| VolunteerApplicationTriggerTest | 100%* | Tests deprecated code | Refactor or remove |
-
-*Note: 100% coverage but tests code that shouldn't be running
-
----
-
-## Questions & Next Steps
-
-### Questions for Client
-1. Is anyone actively using the fields marked for deletion?
-2. Who is the owner of the Stripe integration? (For Campaign mapping discussion)
-3. What is the priority for each finding from a business perspective?
-
-### Next Steps
-1. **Review this report** with stakeholders
-2. **Prioritize fixes** based on business impact
-3. **Schedule implementation** following phased plan
-4. **Provide access** to sandbox for fix development and testing
-5. **Sign off on fixes** before production deployment
-
----
-
-**Report Prepared By**: [Your Name]  
-**Date**: [Date]  
-**Contact**: [Your Email]
-
----
-
-## Client Sign-Off
-
-I have reviewed this Org Health Audit report and approve the recommended fixes for implementation.
-
-**Client Name**: ______________________  
-**Title**: ______________________  
-**Date**: ______________________  
-**Signature**: ______________________
+*Report prepared by [Auditor Name] | Cloud4Good | [Date]*
+*Questions? Contact [email]*

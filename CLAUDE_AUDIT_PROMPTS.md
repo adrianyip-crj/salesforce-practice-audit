@@ -1,288 +1,184 @@
-# Claude Audit Prompts - Example Queries
+# Claude Audit Prompts
 
-Use these prompts when analyzing the Coastal Community Food Bank metadata with Claude. These are designed to help you discover the 7 intentional problems systematically.
-
----
-
-## Initial Setup Prompts
-
-### Upload All Metadata
-```
-I've uploaded Salesforce metadata for a nonprofit organization. This is a practice org with intentional problems built in for audit training. I want you to analyze this metadata and identify:
-
-1. Broken automations (Flows, Process Builders, triggers)
-2. Unused custom fields
-3. Permission set misconfigurations
-4. Redundant automations
-5. Data import/integration issues
-6. Apex code drift (code built for deprecated processes)
-7. Low code coverage and weak test classes
-
-Let's start by analyzing the Flows.
-```
+Use these prompts systematically during the analysis phase. Start with the opening context prompt, then work through each category. Don't skip categories — the value of this service is comprehensive coverage.
 
 ---
 
-## Flow Analysis Prompts
+## Opening Context Prompt
 
-### Discover Broken Flow (#1)
+Paste this at the start of every audit session after uploading the zip:
+
 ```
-Analyze all the Flow files in this metadata. For each Flow:
-1. What object does it trigger on?
-2. What are the trigger conditions?
-3. Are there any logic errors in the trigger conditions (e.g., wrong field types, impossible comparisons)?
-4. What actions does the Flow perform?
+I've uploaded a zip of Salesforce metadata from [Client Name], a [nonprofit/business] 
+that uses Salesforce for [brief description — e.g., donor management, volunteer tracking, 
+grant management].
 
-Pay special attention to any trigger conditions that seem illogical or would never evaluate to true.
-```
+Known integrations: [e.g., Stripe for donation processing, Mailchimp for email marketing]
 
-**Expected Discovery**: Send_Donation_Thank_You_Email flow checks if StageName > 0 (text field compared to number)
-
-### Discover Redundant Flows (#4)
-```
-Looking at all the Flows, are there any that:
-- Trigger on the same object and event?
-- Perform the same or very similar actions?
-- Would result in duplicate records being created?
-
-List any redundant automations you find.
-```
-
-**Expected Discovery**: Both Grant task creation Flows trigger on Grant__c insert and create Tasks
-
----
-
-## Field Analysis Prompts
-
-### Discover Unused Fields (#2)
-```
-Analyze all custom field definitions. For each field:
-1. Does the description indicate it's deprecated or no longer used?
-2. Is the field referenced in any Flows, Apex classes, or validation rules in this metadata?
-3. Are there any fields that appear to have been replaced by newer fields?
-
-Create a list of fields that appear to be unused or deprecated.
-```
-
-**Expected Discovery**: 
-- Old_Volunteer_Category__c (replaced by Volunteer_Type__c)
-- Deprecated_Grant_Status__c (replaced by Status__c)
-- Legacy_Donor_ID__c (from old data migration)
-
----
-
-## Permission Set Analysis Prompts
-
-### Discover Permission Set Misconfiguration (#3)
-```
-Analyze the Volunteer_Portal_User permission set:
-1. What object permissions does it grant?
-2. What field permissions does it grant?
-3. Are there any fields with permissions granted where the parent object has no permissions?
-4. Based on the field permissions, what objects should have permissions that might be missing?
-
-Specifically, look at fields that start with "Volunteer_Shift__c."
-```
-
-**Expected Discovery**: Field permissions reference Volunteer_Shift__c but no object permissions exist for that object
-
----
-
-## Data Model & Integration Analysis Prompts
-
-### Discover Data Import Issue (#5)
-```
-Analyze the Donation_Import__c object:
-1. What fields are marked as required?
-2. Based on the object's description and purpose (Stripe integration staging), are there any required fields that might not be populated by the external integration?
-3. Look at the field descriptions - do any mention integration problems?
-
-Pay special attention to the Campaign__c field.
-```
-
-**Expected Discovery**: Campaign__c is required but Stripe integration doesn't populate it
-
----
-
-## Apex Code Analysis Prompts
-
-### Discover Code/Process Drift (#6)
-```
-Analyze the Apex trigger and classes:
-1. Are there any triggers or classes with comments indicating they're deprecated or built for old processes?
-2. Are there any Flows that appear to perform the same function as Apex triggers?
-3. Look at VolunteerApplicationTrigger specifically - what does it do, and is there a Flow that does the same thing?
-4. If both the trigger and a Flow are active, what would happen when a record is created?
-```
-
-**Expected Discovery**: VolunteerApplicationTrigger (2019) and Process_Volunteer_Application Flow (2022) both create tasks and send emails
-
-### Discover Low Code Coverage (#7)
-```
-Analyze DonationProcessor.cls and DonationProcessorTest.cls:
-1. What methods exist in DonationProcessor?
-2. What methods are called in DonationProcessorTest?
-3. Are there any methods in DonationProcessor that appear to have no test coverage?
-4. Look at the test assertions - are they checking actual data values or just existence?
-5. What error handling paths exist in DonationProcessor that aren't tested?
-
-Estimate the code coverage percentage.
-```
-
-**Expected Discovery**: 
-- validateDonationImport() method has 0% coverage
-- Test assertions are weak (checking size > 0 instead of actual values)
-- Error handling paths not tested
-- Estimated ~60% coverage
-
----
-
-## Comprehensive Analysis Prompts
-
-### Full Audit Summary
-```
-Based on your analysis of all the metadata files, create a comprehensive audit findings report with these sections:
-
-1. **Executive Summary** - High-level overview of findings
-2. **Critical Issues** (High Priority) - Broken automations, data loss risks
-3. **Optimization Opportunities** (Medium Priority) - Unused fields, redundant processes
-4. **Technical Debt** (Medium Priority) - Code coverage, drift issues
-5. **Recommendations** - Specific fixes for each issue with estimated effort
-
-For each finding, include:
-- Finding title
-- Severity (Critical/High/Medium/Low)
-- Impact on the organization
-- Root cause
-- Recommendation
-- Estimated effort to fix
-```
-
-### Dependency Mapping
-```
-Create a dependency map showing:
-1. Which Flows trigger on which objects
-2. Which Apex triggers fire on which objects
-3. Where there are conflicts or overlaps
-4. What would happen if we deactivated the deprecated VolunteerApplicationTrigger
-
-Visualize this as a table or diagram.
-```
-
-### Generate Fix Recommendations
-```
-For the broken thank you email Flow, provide:
-1. Exact description of what's wrong
-2. The correct trigger condition that should be used
-3. Step-by-step instructions for fixing it in the Salesforce UI
-4. The corrected Flow XML if we were to fix it via metadata
+Please extract and analyze this metadata. I'll walk you through specific categories 
+one at a time. Start by confirming what metadata types you can see in the uploaded files 
+and how many files there are in each category.
 ```
 
 ---
 
-## Advanced Analysis Prompts
+## Category 1: Flows
 
-### Cross-Reference Analysis
 ```
-Compare the Volunteer_Portal_User permission set against the actual custom objects and fields that exist. Create a matrix showing:
-- Objects that exist
-- Field permissions granted
-- Object permissions granted
-- Gaps where field permissions exist but object permissions don't
-```
+Analyze all Flows in the metadata. For each Flow, identify:
 
-### Test Class Quality Assessment
-```
-For each test class, assess:
-1. What percentage of the parent class's methods are tested?
-2. Are edge cases tested (null values, exceptions, bulk operations)?
-3. Are assertions meaningful (checking actual values) or weak (checking only existence)?
-4. What specific gaps exist in test coverage?
-5. Write an example of what a proper test method should look like
+1. Its status (Active vs Draft) — flag any Draft flows that appear to have business logic
+2. What object and trigger event it fires on
+3. What it does (creates records, sends emails, updates fields, etc.)
+4. Any logical errors in trigger conditions or decision criteria
+5. Any Flows that fire on the same object and event as another Flow — flag as potentially redundant
 
-Do this for both VolunteerApplicationTriggerTest and DonationProcessorTest.
-```
-
-### Write Example Fixes
-```
-Write the corrected code/metadata for:
-1. The broken thank you email Flow (fix the trigger condition)
-2. A new comprehensive test class for DonationProcessor that achieves 90%+ coverage
-3. The corrected Volunteer_Portal_User permission set with proper object permissions
-
-Provide these as actual Salesforce metadata XML or Apex code that could be deployed.
+List your findings with the Flow name, status, trigger, what it does, and any issues found.
 ```
 
 ---
 
-## Prompt Sequencing Strategy
-
-**Recommended Order:**
-1. Start with Flow analysis (finds problems #1 and #4)
-2. Move to field analysis (finds problem #2)
-3. Analyze permission sets (finds problem #3)
-4. Review data model for integration issues (finds problem #5)
-5. Deep dive on Apex code (finds problems #6 and #7)
-6. Generate comprehensive findings report
-7. Request specific fix recommendations
-
-**Why this order?**
-- Flows are easiest to spot issues in (visual logic errors)
-- Fields are straightforward (check descriptions)
-- Permission sets require cross-referencing
-- Apex requires deeper analysis and code review
-- Finish with synthesis and recommendations
-
----
-
-## Tips for Effective Prompting
-
-1. **Be specific about what you're looking for** - Don't just ask "what's wrong?" Ask targeted questions about specific aspects.
-
-2. **Ask Claude to show its work** - Request that Claude quote the specific lines of XML or code that demonstrate the problem.
-
-3. **Request comparisons** - Ask Claude to compare old vs. new approaches (e.g., trigger vs. Flow).
-
-4. **Ask for impact analysis** - Don't just find problems; ask what the business impact is.
-
-5. **Request actionable fixes** - Ask for specific steps to resolve each issue, not just identification.
-
-6. **Iterate on findings** - If Claude finds something interesting, drill deeper with follow-up questions.
-
----
-
-## Sample Follow-Up Questions
-
-After Claude identifies a problem:
-```
-For this finding, provide:
-- Step-by-step instructions for how to verify this issue in the Salesforce UI
-- The exact error message or symptom a user would see
-- Which users/processes are affected
-- Whether this is blocking critical functionality or just causing inefficiency
-- A prioritization recommendation (fix now vs. schedule for later)
-```
+## Category 2: Custom Fields
 
 ```
-Write the "Before and After" view of this fix:
-- What the metadata/code looks like now (the problem)
-- What it should look like after the fix
-- How to test that the fix worked
+For every custom field in the metadata, trace its references across all other metadata types:
+- Flows
+- Apex classes and triggers
+- Permission sets
+- Layouts
+- Profiles
+
+Flag any field that has zero references across all of these. Also flag any field whose 
+name or description contains words like "deprecated", "old", "legacy", or "unused".
+
+Present findings as a list: field name, object, and what references exist (or "none found").
 ```
 
 ---
 
-## Generating Client-Facing Reports
+## Category 3: Permission Sets
 
 ```
-Take your findings and rewrite them in client-friendly language:
-- Remove technical jargon
-- Focus on business impact, not technical details
-- Use analogies if helpful ("This is like having two people doing the same job - wasteful and confusing")
-- Prioritize by ROI and business risk
-- Include effort estimates in hours, not technical complexity
+Analyze all permission sets. For each one:
+
+1. List the objects it grants access to and the access level (read/edit/create/delete)
+2. List the fields it grants access to
+3. Cross-reference with the custom objects in the metadata — are there any custom objects 
+   that exist but are missing from this permission set entirely?
+4. Flag any cases where a permission set grants field access but not object access 
+   (fields are inaccessible without object access)
+
+Focus especially on permission sets with "portal" or "community" in the name, as these 
+are typically assigned to external users where gaps cause visible problems.
 ```
 
 ---
 
-These prompts will help you systematically discover all 7 intentional problems and generate a professional audit deliverable!
+## Category 4: Apex Triggers vs Flows
+
+```
+List all active Apex triggers and all active Flows, grouped by the object they fire on.
+
+For each object that has BOTH an active trigger AND an active Flow:
+1. What does the trigger do?
+2. What does the Flow do?
+3. Is there overlap — are they doing the same or similar things?
+4. Flag as a code/process drift risk if they appear to duplicate each other.
+
+Also flag any Apex trigger whose code comments suggest it has been replaced or deprecated.
+```
+
+---
+
+## Category 5: Apex Test Coverage
+
+```
+Review all Apex test classes. For each test class:
+
+1. Which Apex class or trigger is it testing?
+2. What scenarios does it cover? (look at what records it creates and what it calls)
+3. What scenarios are NOT covered? (error paths, edge cases, bulk operations)
+4. Are the assertions meaningful? (assert specific values, not just that something exists 
+   or that a status changed to anything other than its original value)
+5. Are there any Apex classes that have NO corresponding test class at all?
+
+Flag test classes with weak assertions as "passes but doesn't validate" — these give 
+false confidence in coverage.
+```
+
+---
+
+## Category 6: Integration Staging Objects
+
+```
+Look for any custom objects that appear to be integration staging tables — objects used 
+to receive data from external systems before processing. Common patterns: objects with 
+names containing "Import", "Staging", "Inbound", or "Queue"; objects with fields like 
+"Status", "Error", "Transaction ID", or references to external system IDs.
+
+For each staging object found:
+1. List its required fields
+2. Flag any required fields that an integration would typically need to populate
+3. Note any fields that seem like they might not be mapped by the integration 
+   (e.g., required lookup fields to objects the external system wouldn't know about)
+
+Present these as integration risk flags, not confirmed problems.
+```
+
+---
+
+## Category 7: Cross-System Summary
+
+```
+Based on everything you've analyzed, give me a cross-system summary:
+
+1. What are the 3 most critical issues — things that are actively broken or causing 
+   data loss right now?
+2. What are the top 3 high-priority issues — things that should be fixed this month?
+3. What are the top technical debt items — things that are messy but not breaking anything?
+4. Are there any dependency risks — places where fixing one thing could break another?
+
+For each finding, note your confidence level:
+- Confirmed: directly visible in the metadata, no further verification needed
+- Likely: strongly suggested but worth a quick check
+- Flag for investigation: needs client input or org access to verify
+```
+
+---
+
+## Follow-Up Prompts
+
+Use these as needed during the analysis:
+
+**To dig into a specific finding:**
+```
+Tell me more about [finding]. What exactly does the metadata show, and what would 
+the fix look like?
+```
+
+**To check a specific field:**
+```
+Search all files for any reference to [field_name__c]. List every file that contains it 
+and what the reference is.
+```
+
+**To check a specific flow:**
+```
+Read [Flow_Name] in full and explain what it does step by step, including the trigger 
+conditions and all actions.
+```
+
+**To get fix recommendations:**
+```
+For [finding], write the specific fix — including what to change, where to change it, 
+and what to test after the fix.
+```
+
+**To write test classes:**
+```
+Read [ClassName.cls] and write a complete, well-asserted test class that covers:
+- The happy path
+- The error/null path
+- Bulk operations (200 records)
+- Any validation logic in the class
+```

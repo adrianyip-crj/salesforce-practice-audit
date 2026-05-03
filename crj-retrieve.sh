@@ -1,8 +1,26 @@
 #!/bin/bash
-# crj-retrieve.sh — Run with: ./crj-retrieve.sh [org-alias]
+# crj-retrieve.sh
+# Retrieves Salesforce metadata, commits to Git, and packages for Claude upload
+#
+# Usage: ./crj-retrieve.sh [org-alias]
+# Example: ./crj-retrieve.sh my-client-org
+#
+# Prerequisites:
+#   - Salesforce CLI installed (sf)
+#   - Authenticated to org: sf org login web --alias [org-alias] --set-default
+#   - Git initialized in this directory
+#   - Run from the client project directory
+
 ORG=${1:-my-practice-org}
 
-echo "Retrieving metadata from $ORG..."
+echo "=========================================="
+echo "CRJ Org Health Audit — Metadata Retrieval"
+echo "Org: $ORG"
+echo "Date: $(date '+%Y-%m-%d')"
+echo "=========================================="
+
+echo ""
+echo "Step 1: Retrieving metadata from $ORG..."
 
 sf project retrieve start \
   --metadata ApexClass \
@@ -14,11 +32,26 @@ sf project retrieve start \
   --metadata Profile \
   --target-org $ORG
 
-echo "Committing..."
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "ERROR: Metadata retrieval failed. Check your org authentication and try again."
+  echo "Run: sf org login web --alias $ORG --set-default"
+  exit 1
+fi
+
+echo ""
+echo "Step 2: Committing to Git..."
 git add .
 git commit -m "Metadata retrieval - $(date '+%Y-%m-%d')"
 
-echo "Zipping for Claude upload..."
-tar -czf crj-audit-$(date '+%Y-%m-%d').tar.gz force-app/
+echo ""
+echo "Step 3: Packaging for Claude upload..."
+FILENAME="crj-audit-$(date '+%Y-%m-%d').tar.gz"
+tar -czf $FILENAME force-app/
 
-echo "Ready: crj-audit-$(date '+%Y-%m-%d').tar.gz"
+echo ""
+echo "=========================================="
+echo "Done."
+echo "Upload this file to Claude: $FILENAME"
+echo "Find it in Finder: Cmd+Shift+G → $(pwd)"
+echo "=========================================="
