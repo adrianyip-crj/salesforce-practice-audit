@@ -8,7 +8,7 @@
     <referenceTo>Campaign</referenceTo>
     <relationshipLabel>Donation Imports</relationshipLabel>
     <relationshipName>Donation_Imports</relationshipName>
-    <required>true</required>
+    <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>
