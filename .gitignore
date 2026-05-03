@@ -36,3 +36,4 @@ Desktop.ini
 # Test results
 test-results/
 coverage/
+*.tar.gz
