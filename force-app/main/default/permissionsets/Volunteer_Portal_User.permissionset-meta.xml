@@ -23,11 +23,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Volunteer_Shift__c.Shift_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Volunteer_Shift__c.Hours_Worked__c</field>
         <readable>true</readable>
     </fieldPermissions>
