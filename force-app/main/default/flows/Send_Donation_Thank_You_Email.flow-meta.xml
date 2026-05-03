@@ -30,12 +30,19 @@
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <description>Sends thank you email to donors when donation is received. PROBLEM: Trigger condition checks wrong field (StageName instead of Amount).</description>
+    <environments>Default</environments>
     <interviewLabel>Send Donation Thank You Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Send Donation Thank You Email</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
@@ -55,7 +62,7 @@
         </filters>
         <filters>
             <field>Amount</field>
-            <operator>EqualTo</operator>
+            <operator>GreaterThan</operator>
             <value>
                 <numberValue>0.0</numberValue>
             </value>
@@ -64,5 +71,5 @@
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>
