@@ -16,17 +16,7 @@
         <field>Volunteer__c.Total_Hours_Volunteered__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Volunteer_Shift__c.Shift_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Volunteer_Shift__c.Hours_Worked__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-<hasActivationRequired>false</hasActivationRequired>
+    <hasActivationRequired>false</hasActivationRequired>
     <label>Volunteer Portal User</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
