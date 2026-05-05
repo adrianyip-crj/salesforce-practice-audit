@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Program_Director</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Program Director</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Program_Director</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <role>Program_Director</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
