@@ -211,12 +211,20 @@ This example emerged during implementation and illustrates the deeper value of s
 
 These are gaps discovered during the CRJ practice audit cycle that affect finding accuracy:
 
-### 1. Field Utility Requires FLS Cross-Reference
-Claude traces field references across Flows, Apex, layouts, and permission sets. But a field can appear unreferenced in all of those while still being actively used in reports, list views, or external integrations — and conversely, a field with no FLS cannot be used by anyone regardless of what metadata says.
+### 1. Field Usage Analysis - Three-Tier Methodology
 
-**The correct workflow:** Always check profile FLS before classifying a field as unused. A field with no FLS granted to any profile is completely inaccessible — stronger deletion candidate than a field that's visible but simply not referenced in automations.
+Claude uses a tiered confidence framework for identifying unused fields:
 
-**This is a prompt gap, not a retrieval gap.** Profile metadata is included in every standard retrieve. Claude has the data — it must be explicitly asked to use it.
+**Tier 1 - CONFIRMED UNUSED (No FLS Granted)**  
+Fields with no field-level security granted to any profile or permission set are provably unused — literally nobody in the org can access them. These are safe deletion candidates after data verification.
+
+**Tier 2 - LIKELY UNUSED (Has FLS, No References)**  
+Fields with FLS but no references in automations (Flows, Workflows, Process Builders, Validation Rules, Sharing Rules), Apex code, page layouts, or formulas are likely unused. Caveat: Report and List View usage cannot be determined from metadata and must be verified in the org before deletion.
+
+**Tier 3 - NEEDS INVESTIGATION (Naming Patterns)**  
+Fields with naming patterns suggesting deprecation (Legacy_*, Old_*, Deprecated_*, version numbers, date patterns) or cluster analysis showing multiple fields with the same prefix all unused require client confirmation of deprecation intent.
+
+**This FLS-first methodology** makes field-level security analysis the foundation of unused field detection, with clear confidence tiers based on available metadata signals.
 
 ### 2. Reports and List Views Are Invisible
 Fields actively used in reports or list views will not appear in any retrieved metadata type. A field may look completely unused in metadata while being referenced in a key operational report. Always include this caveat when recommending field deletion to clients.
