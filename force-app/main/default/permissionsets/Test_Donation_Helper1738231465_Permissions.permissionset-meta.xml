@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Allows custom permissions for Agentforce Agent : Test_Donation_Helper&apos;s agent user : test_donation_helper@00ddm00000vajvu1702818522.ext.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Test_Donation_Helper1738231465 Permissions</label>
+    <license>Einstein Agent</license>
+</PermissionSet>
